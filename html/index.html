@@ -1,0 +1,634 @@
+<think>
+    O usuário quer uma página de vendas de sorvetes com coberturas. Vou criar um template atrativo, profissional e responsivo com CSS moderno e JavaScript funcional para um sistema de pedidos.
+    </think>
+    
+    # Página de Venda de Sorvetes
+    
+    Aqui está um template completo e encantador para sorveteria com sistema de pedidos.
+    
+    ```html
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gelatto | Sorvetes Artesanais</title>
+        <style>
+            /* --- VARIÁVEIS --- */
+            :root {
+                --primary: #ff6b9d; /* Rosa sorvete */
+                --secondary: #ffd93d; /* Amarelo cobertura */
+                --accent: #6bcb77; /* Verde pistache */
+                --dark: #2d3436;
+                --light: #fff9f9;
+                --bg: #fff5f5;
+                --text: #4a4a4a;
+                --gradient: linear-gradient(135deg, #ff6b9d 0%, #ff8e53 100%);
+            }
+    
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+            body {
+                font-family: 'Nunito', 'Segoe UI', sans-serif;
+                background: var(--bg);
+                color: var(--text);
+                line-height: 1.6;
+            }
+    
+            /* --- HEADER --- */
+            header {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 1rem 5%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            }
+    
+            .logo {
+                font-size: 1.8rem;
+                font-weight: 900;
+                background: var(--gradient);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+    
+            .cart-icon {
+                position: relative;
+                cursor: pointer;
+                font-size: 1.5rem;
+            }
+    
+            .cart-badge {
+                position: absolute;
+                top: -8px;
+                right: -8px;
+                background: var(--primary);
+                color: white;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                font-size: 0.7rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+            }
+    
+            /* --- HERO --- */
+            .hero {
+                background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                            url('https://images.unsplash.com/photo-1497034825429-c343d7c6a68d?q=80&w=1920&auto=format&fit=crop');
+                background-size: cover;
+                background-position: center bottom;
+                height: 80vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: white;
+                padding: 0 1rem;
+            }
+    
+            .hero h1 {
+                font-size: clamp(2.5rem, 7vw, 4.5rem);
+                margin-bottom: 1rem;
+                text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            }
+    
+            .hero p {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+                opacity: 0.95;
+            }
+    
+            .btn {
+                display: inline-block;
+                padding: 1rem 2.5rem;
+                background: var(--gradient);
+                color: white;
+                font-weight: 700;
+                border-radius: 50px;
+                font-size: 1rem;
+                transition: 0.3s;
+                border: none;
+                cursor: pointer;
+            }
+    
+            .btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            }
+    
+            /* --- SABORES --- */
+            .section {
+                padding: 4rem 5%;
+            }
+    
+            .section-title {
+                text-align: center;
+                font-size: 2.2rem;
+                margin-bottom: 0.5rem;
+                color: var(--dark);
+            }
+    
+            .section-subtitle {
+                text-align: center;
+                color: #888;
+                margin-bottom: 3rem;
+            }
+    
+            .flavors-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 2rem;
+            }
+    
+            .flavor-card {
+                background: white;
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+                transition: 0.3s;
+            }
+    
+            .flavor-card:hover {
+                transform: translateY(-10px);
+            }
+    
+            .flavor-img-wrapper {
+                height: 200px;
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .flavor-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: 0.3s;
+            }
+    
+            .flavor-card:hover .flavor-img {
+                transform: scale(1.1);
+            }
+    
+            .flavor-tag {
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                padding: 0.3rem 1rem;
+                border-radius: 20px;
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+    
+            .tag-new { background: var(--secondary); color: var(--dark); }
+            .tag-vegan { background: var(--accent); color: white; }
+            .tag-popular { background: var(--primary); color: white; }
+    
+            .flavor-info {
+                padding: 1.5rem;
+            }
+    
+            .flavor-name {
+                font-size: 1.3rem;
+                font-weight: 800;
+                margin-bottom: 0.5rem;
+                color: var(--dark);
+            }
+    
+            .flavor-desc {
+                font-size: 0.9rem;
+                color: #888;
+                margin-bottom: 1rem;
+            }
+    
+            .flavor-bottom {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+    
+            .flavor-price {
+                font-size: 1.4rem;
+                font-weight: 900;
+                color: var(--primary);
+            }
+    
+            .add-btn {
+                width: 40px;
+                height: 40px;
+                background: var(--dark);
+                color: white;
+                border-radius: 50%;
+                font-size: 1.2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: 0.3s;
+                border: none;
+                cursor: pointer;
+            }
+    
+            .add-btn:hover {
+                background: var(--primary);
+                transform: scale(1.1);
+            }
+    
+            /* --- COBERTURAS --- */
+            .toppings-section {
+                background: white;
+            }
+    
+            .toppings-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+    
+            .topping-item {
+                background: var(--bg);
+                padding: 1rem;
+                border-radius: 15px;
+                text-align: center;
+                cursor: pointer;
+                border: 2px solid transparent;
+                transition: 0.3s;
+            }
+    
+            .topping-item:hover,
+            .topping-item.selected {
+                border-color: var(--primary);
+                background: rgba(255, 107, 157, 0.1);
+            }
+    
+            .topping-img {
+                width: 80px;
+                height: 80px;
+                object-fit: contain;
+                margin-bottom: 0.5rem;
+            }
+    
+            .topping-name {
+                font-weight: 700;
+                font-size: 0.9rem;
+                margin-bottom: 0.3rem;
+            }
+    
+            .topping-price {
+                color: var(--primary);
+                font-weight: 700;
+                font-size: 0.85rem;
+            }
+    
+            /* --- ACESÓRIOS --- */
+            .extras-section {
+                background: var(--bg);
+            }
+    
+            .extras-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+    
+            .extra-card {
+                background: white;
+                padding: 1.5rem;
+                border-radius: 15px;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            }
+    
+            .extra-icon {
+                width: 50px;
+                height: 60px;
+                font-size: 2rem;
+            }
+    
+            .extra-info h4 {
+                font-size: 1rem;
+                margin-bottom: 0.3rem;
+            }
+    
+            .extra-info p {
+                color: #888;
+                font-size: 0.85rem;
+                margin-bottom: 0.3rem;
+            }
+    
+            .extra-price {
+                color: var(--primary);
+                font-weight: 700;
+            }
+    
+            /* --- BUILDER --- */
+            .builder-section {
+                padding: 4rem 5%;
+                background: linear-gradient(135deg, #2d3436, #1a1a1a);
+                color: white;
+            }
+    
+            .builder-container {
+                max-width: 1000px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+                align-items: center;
+            }
+    
+            .builder-preview {
+                background: rgba(255,255,255,0.1);
+                border-radius: 20px;
+                padding: 2rem;
+                text-align: center;
+            }
+    
+            .preview-img {
+                width: 200px;
+                height: 250px;
+                object-fit: contain;
+                margin-bottom: 1rem;
+            }
+    
+            .preview-name {
+                font-size: 1.5rem;
+                font-weight: 800;
+                margin-bottom: 0.5rem;
+            }
+    
+            .preview-total {
+                font-size: 2rem;
+                color: var(--secondary);
+                font-weight: 900;
+            }
+    
+            .builder-form h2 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+    
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+    
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 700;
+            }
+    
+            .form-group select {
+                width: 100%;
+                padding: 1rem;
+                border-radius: 10px;
+                border: none;
+                font-size: 1rem;
+                background: white;
+            }
+    
+            .btn-builder {
+                width: 100%;
+                padding: 1.2rem;
+                background: var(--gradient);
+                color: white;
+                font-weight: 800;
+                font-size: 1.1rem;
+                border-radius: 15px;
+                border: none;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+    
+            .btn-builder:hover {
+                transform: scale(1.02);
+            }
+    
+            /* --- CART MODAL --- */
+            .cart-modal {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                max-width: 420px;
+                height: 100%;
+                background: white;
+                z-index: 2000;
+                transition: 0.4s;
+                display: flex;
+                flex-direction: column;
+            }
+    
+            .cart-modal.open {
+                right: 0;
+            }
+    
+            .cart-header {
+                padding: 1.5rem;
+                background: var(--dark);
+                color: white;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+    
+            .close-cart {
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+    
+            .cart-items {
+                flex: 1;
+                overflow-y: auto;
+                padding: 1rem;
+            }
+    
+            .cart-item {
+                display: flex;
+                gap: 1rem;
+                padding: 1rem;
+                background: var(--bg);
+                border-radius: 10px;
+                margin-bottom: 1rem;
+            }
+    
+            .cart-item-img {
+                width: 70px;
+                height: 70px;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+    
+            .cart-item-details {
+                flex: 1;
+            }
+    
+            .cart-item-name {
+                font-weight: 700;
+                font-size: 0.95rem;
+                margin-bottom: 0.3rem;
+            }
+    
+            .cart-item-extras {
+                font-size: 0.75rem;
+                color: #888;
+                margin-bottom: 0.5rem;
+            }
+    
+            .cart-item-price {
+                color: var(--primary);
+                font-weight: 700;
+            }
+    
+            .cart-empty {
+                text-align: center;
+                padding: 3rem;
+                color: #888;
+            }
+    
+            .cart-footer {
+                padding: 1.5rem;
+                border-top: 1px solid #eee;
+            }
+    
+            .cart-total {
+                display: flex;
+                justify-content: space-between;
+                font-size: 1.3rem;
+                font-weight: 800;
+                margin-bottom: 1rem;
+            }
+    
+            .checkout-btn {
+                width: 100%;
+                padding: 1rem;
+                background: var(--gradient);
+                color: white;
+                font-weight: 700;
+                border-radius: 10px;
+                border: none;
+                font-size: 1rem;
+                cursor: pointer;
+            }
+    
+            /* --- TOAST --- */
+            .toast {
+                position: fixed;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%) translateY(100px);
+                background: var(--dark);
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                font-weight: 700;
+                opacity: 0;
+                transition: 0.4s;
+                z-index: 3000;
+            }
+    
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+    
+            /* --- FOOTER --- */
+            footer {
+                background: var(--dark);
+                color: white;
+                padding: 3rem 5%;
+                text-align: center;
+            }
+    
+            .footer-info {
+                display: flex;
+                justify-content: center;
+                gap: 2rem;
+                margin-bottom: 2rem;
+                flex-wrap: wrap;
+            }
+    
+            .footer-info p {
+                opacity: 0.7;
+            }
+    
+            /* --- RESPONSIVE --- */
+            @media (max-width: 768px) {
+                .builder-container {
+                    grid-template-columns: 1fr;
+                }
+                .flavors-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 1rem;
+                }
+                .flavor-img-wrapper {
+                    height: 150px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+    
+        <!-- HEADER -->
+        <header>
+            <div class="logo">🍦 Gelatto</div>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-badge" id="cartBadge">0</span>
+            </div>
+        </header>
+    
+        <!-- HERO -->
+        <section class="hero">
+            <div>
+                <h1>Sorvete Artesanal<br>Feito com Amor</h1>
+                <p>Ingredientes naturais, receitas exclusivas e muito sabor!</p>
+                <a href="#flavors" class="btn">Fazer Pedido</a>
+            </div>
+        </section>
+    
+        <!-- SABORES -->
+        <section id="flavors" class="section">
+            <h2 class="section-title">Nossos Sabores</h2>
+            <p class="section-subtitle">Feitos diariamente com ingredientes frescos</p>
+            
+            <div class="flavors-grid" id="flavorsGrid">
+                <!-- JavaScript vai inserir os sorvetes aqui -->
+            </div>
+        </section>
+    
+        <!-- COBERTURAS -->
+        <section class="section toppings-section">
+            <h2 class="section-title">Coberturas Especiais</h2>
+            <p class="section-subtitle">Adicione coberturas irresistíveis</p>
+            
+            <div class="toppings-grid">
+                <div class="topping-item" onclick="toggleTopping(this)">
+                    <img src="https://img.icons8.com/color/96/chocolate-bar.png" alt="Chocolate" class="topping-img">
+                    <h4 class="topping-name">Chocolate</h4>
+                    <span class="topping-price">+ R$ 5,00</span>
+                </div>
+                <div class="topping-item" onclick="toggleTopping(this)">
+                    <img src="https://img.icons8.com/color/96/strawberry.png" alt="Morango" class="topping-img">
+                    <h4 class="topping-name">Calda de Morango</h4>
+                    <span class="topping-price">+ R$ 5,00</span>
+                </div>
+                <div class="topping-item" onclick="toggleTopping(this)">
+                    <img src="https://img.icons8.com/color/96/caramel.png" alt="Caramelo" class="topping-img">
+                    <h4 class="topping-name">Caramelo</h4>
+                    <span class="topping-price">+ R$ 5,00</span>
+                </div>
+                <div class="topping-item" onclick="toggleTopping(this)">
+                    <img src="https://img.icons8.com/color/96/cookie.png" alt="Biscoito" class="topping-img">
+                    <h4 class="topping-name">Cr
