@@ -1,0 +1,628 @@
+<think>
+The user wants me to create an HTML with CSS about Netflix movie posters. This should be a gallery/list style page showcasing movie posters in the Netflix style - dark background, elegant typography, and visually appealing poster displays.
+
+Let me create a complete, responsive HTML page with CSS that features:
+1. Netflix-style dark theme
+2. Grid of movie posters
+3. Modern hover effects
+4. Clean typography
+5. Poster details on hover
+6. Categories filter
+
+I'll use placeholder images from Unsplash that are movie-related.
+</think>
+
+Aqui está um site completo de **cartazes de filmes** no estilo Netflix, com design elegante, efeitos visuais modernos e galeria responsiva.
+
+```html
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NETFLIX POSTERS | Galeria de Cartazes</title>
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Netflix+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================
+           VARIÁVEIS & RESET
+           ======================== */
+        :root {
+            --black: #000000;
+            --dark: #141414;
+            --dark-2: #1a1a1a;
+            --gray: #2d2d2d;
+            --gray-dark: #333333;
+            --silver: #808080;
+            --silver-light: #a3a3a3;
+            --white: #ffffff;
+            --netflix: #e50914;
+            --netflix-hover: #f40612;
+            --gold: #ffa00a;
+            --green: #46d369;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Netflix Sans', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ========================
+           HEADER
+           ======================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
+            z-index: 1000;
+            padding: 1.5rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        header.scrolled {
+            background: var(--black);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 4px;
+            color: var(--netflix);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .header-nav a {
+            color: var(--silver-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .header-nav a:hover,
+        .header-nav a.active {
+            color: var(--white);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .notification-btn {
+            position: relative;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 8px;
+            height: 8px;
+            background: var(--netflix);
+            border-radius: 50%;
+        }
+
+        .profile-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            background: var(--gray);
+            cursor: pointer;
+        }
+
+        /* ========================
+           HERO / BANNER
+           ======================== */
+        .hero {
+            height: 70vh;
+            position: relative;
+            background: linear-gradient(to bottom, transparent 30%, var(--black) 100%),
+                        linear-gradient(to right, rgba(0,0,0,0.8) 0%, transparent 60%),
+                        url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 0 4%;
+        }
+
+        .hero-content {
+            max-width: 550px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero-tag {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.5rem, 10vw, 5rem);
+            line-height: 1;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .hero-rating {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .hero-meta-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--silver);
+        }
+
+        .hero-description {
+            color: var(--silver-light);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-watch {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.7rem 1.8rem;
+            background: var(--white);
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .btn-watch:hover {
+            background: rgba(255,255,255,0.85);
+        }
+
+        .btn-info {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.7rem 1.8rem;
+            background: rgba(109,109,110,0.7);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .btn-info:hover {
+            background: rgba(109,109,110,0.5);
+        }
+
+        /* ========================
+           FILTERS
+           ======================== */
+        .filters {
+            padding: 1.5rem 4%;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.2rem;
+            background: var(--dark-2);
+            border: 1px solid var(--gray-dark);
+            color: var(--silver-light);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--white);
+            color: var(--black);
+            border-color: var(--white);
+        }
+
+        .genre-select {
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            background: var(--dark-2);
+            border: 1px solid var(--gray-dark);
+            color: var(--white);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23fff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+        }
+
+        /* ========================
+           POSTERS GRID
+           ======================== */
+        .posters-section {
+            padding: 1rem 4% 4rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--netflix);
+        }
+
+        .posters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .poster-card {
+            position: relative;
+            aspect-ratio: 2/3;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            background: var(--dark-2);
+        }
+
+        .poster-card:hover {
+            transform: scale(1.15) translateY(-10px);
+            z-index: 100;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .poster-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .poster-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .poster-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1rem;
+        }
+
+        .poster-card:hover .poster-overlay {
+            opacity: 1;
+        }
+
+        .poster-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .poster-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.75rem;
+            color: var(--silver-light);
+        }
+
+        .poster-rating {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .poster-match {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--green);
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .poster-match::before {
+            content: '✓';
+            font-size: 0.6rem;
+        }
+
+        .poster-hd {
+            padding: 0.1rem 0.4rem;
+            border: 1px solid var(--silver);
+            font-size: 0.6rem;
+            font-weight: 600;
+        }
+
+        /* ========================
+           TOP 10 POSTERS
+           ======================== */
+        .top10-section {
+            padding: 2rem 4% 4rem;
+            background: var(--dark);
+        }
+
+        .top10-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+        }
+
+        .top10-item {
+            position: relative;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .top10-rank {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 6rem;
+            line-height: 1;
+            color: var(--dark-2);
+            -webkit-text-stroke: 2px var(--gray);
+        }
+
+        .top10-poster {
+            width: 100%;
+            aspect-ratio: 2/3;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .top10-poster:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .top10-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ========================
+           CATEGORIES BANNER
+           ======================== */
+        .categories-banner {
+            padding: 4rem 4%;
+            background: linear-gradient(135deg, var(--dark-2) 0%, var(--black) 100%);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .category-card {
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-dark);
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            background: var(--netflix);
+            transform: scale(1.02);
+        }
+
+        .category-card span {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* ========================
+           FOOTER
+           ======================== */
+        footer {
+            padding: 4rem 4% 2rem;
+            background: var(--black);
+            color: var(--silver);
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: var(--silver);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--white);
+        }
+
+        .service-code {
+            padding: 1rem;
+            border: 1px solid var(--gray);
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+        }
+
+        /* ========================
+           RESPONSIVE
+           ======================== */
+        @media (max-width: 768px) {
+            .header-nav { display: none; }
+            .hero { height: 60vh; }
+            .hero h1 { font-size: 3rem; }
+            .posters-grid { 
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+            .poster-card:hover {
+                transform: scale(1.05);
+            }
+            .top10-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .categories-banner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .posters-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-buttons {
+                flex-direction: column;
+            }
+            .hero-description {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo">NETFLIX</div>
+        <nav class="header-nav">
+            <a href= class="active">Início</a>
+            <a href=>Séries</a>
+            <a href=>Filmes</a>
+            <a href=>Bombando</a>
+            <a href=>Minha Lista</a>
+        </nav>
+        <div class="header-actions">
+            <button class="search-btn">🔍</button>
+            <button class="notification-btn">
+                🔔
+                <span class="notification-badge"></span>
+            </button>
+            <button class="profile-btn"></button>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="hero-tag">Nº 1 em filmes hoje</span>
+            </div>
+            <h1>OPPENHEIMER</h1>
+            <div class="hero-meta">
+                <span class="hero-rating">9.2</span>
+                <span class="hero-meta-dot"></span>
+                <span>2023</span>
+                <span class="hero-meta-dot"></span>
+                <span class="hero-hd">4K</span>
+                <span class="hero-meta-dot"></span>
+                <span>HD</span>
+            </div>
+            <p class="hero-description">
+                A história do físico americano J. Robert Oppenheimer e
